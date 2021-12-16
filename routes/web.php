@@ -1,6 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Admin\ChecklistController;
+use App\Http\Controllers\Admin\ChecklistGroupController;
+use App\Http\Controllers\Admin\PageController;
+use App\Http\Controllers\Admin\TaskController;
+ use App\Http\Controllers\HomeController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -19,12 +26,12 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'admin', 'as'=>'admin.','middleware' => 'is_admin'], function () {
-         Route::resource('pages',\App\Http\Controllers\Admin\PageController::class);
-         Route::resource('checklist_groups',\App\Http\Controllers\Admin\ChecklistGroupController::class);
-         Route::resource('checklist_groups.checklists',\App\Http\Controllers\Admin\ChecklistController::class);
-         Route::resource('checklists.tasks',\App\Http\Controllers\Admin\TaskController::class);
+         Route::resource('pages',PageController::class)->only(['edit','update']);
+         Route::resource('checklist_groups',ChecklistGroupController::class);
+         Route::resource('checklist_groups.checklists',ChecklistController::class);
+         Route::resource('checklists.tasks',TaskController::class);
     });
 });

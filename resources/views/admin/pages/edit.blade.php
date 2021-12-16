@@ -1,38 +1,39 @@
 @extends('layouts.app')
-
 @section('content')
     <div class="container-fluid">
         <div class="fade-in">
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        @if ($errors->storetask->any())
+                        @if ($errors->any())
                             <div class="alert alert-danger">
                                 <ul>
-                                    @foreach ($errors->storetask->all() as $error)
+                                    @foreach ($errors->all() as $error)
                                         <li>{{ $error }}</li>
                                     @endforeach
                                 </ul>
                             </div>
                         @endif
 
-                        <form action="{{route('admin.checklists.tasks.update',[$task->checklist_id,$task] )}}"
-                              method="POST">
+                        <form action="{{route('admin.pages.update',[$page] )}}" method="POST">
                             @csrf
                             @method('PUT')
-                            <div class="card-header">{{ __('Edit Task') }}</div>
+                            @if(session('message'))
+                                <div class="alert alert-info">{{session('message')}}</div>
+                            @endif
+                            <div class="card-header">{{ __('Edit Page') }}</div>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="form-group">
-                                            <label for="name">{{__('Name')}}</label>
-                                            <input id="name" class="form-control" value="{{$task->name}}" name="name"
+                                            <label for="name">{{__('Title')}}</label>
+                                            <input id="name" class="form-control" value="{{$page->title}}" name="title"
                                                    type="text">
                                         </div>
                                         <div class="form-group">
-                                            <label for="task-textarea">{{__('Description')}}</label>
-                                            <textarea   class="form-control" name="description"
-                                                      id="task-textarea">  {{$task->description}} </textarea>
+                                            <label for="content-textarea">{{__('Content')}}</label>
+                                            <textarea class="form-control" name="content"
+                                                      id="content-textarea">  {{$page->content}} </textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -50,7 +51,7 @@
 @section('scripts')
     <script>
         ClassicEditor
-            .create(document.querySelector('#task-textarea'))
+            .create(document.querySelector('#content-textarea'))
             .catch(error => {
                 console.error(error);
             });

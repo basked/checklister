@@ -11,16 +11,7 @@
 
 
         @if(auth()->user()->is_admin)
-            <li class="c-sidebar-nav-title">{{__('Admin')}}</li>
-            <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
-                <a class="c-sidebar-nav-link "
-                   href=" {{route('admin.pages.index')}} ">
-                <svg class="c-sidebar-nav-icon">
-                    <use xlink:href=" {{asset('vendors/@coreui/icons/svg/free.svg#cil-puzzle')}}"></use>
-                </svg>
-                Pages
-                </a>
-            </li>
+
             <li class="c-sidebar-nav-title">{{__('Manage CheckList')}}</li>
             @foreach(\App\Models\ChecklistGroup::with('checklists')->get()  as $group)
                 <li class="c-sidebar-nav-item c-sidebar-nav-dropdown c-show">
@@ -42,11 +33,12 @@
                                 </a>
                             </li>
                         @endforeach
-                            <li class="c-sidebar-nav-item">
-                                <a class="c-sidebar-nav-link" href="{{route('admin.checklist_groups.checklists.create',$group)}}">
-                                    {{__('New checklists')}}
-                                </a>
-                            </li>
+                        <li class="c-sidebar-nav-item">
+                            <a class="c-sidebar-nav-link"
+                               href="{{route('admin.checklist_groups.checklists.create',$group)}}">
+                                {{__('New checklists')}}
+                            </a>
+                        </li>
                     </ul>
                 </li>
             @endforeach
@@ -55,21 +47,19 @@
                     {{__('New checklists group')}}
                 </a>
             </li>
+            <li class="c-sidebar-nav-title">{{__('Pages')}}</li>
+            @foreach(\App\Models\Page::all() as $page)
+                <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
+                    <a class="c-sidebar-nav-link "
+                       href=" {{route('admin.pages.edit',[$page])}} ">
+                        <svg class="c-sidebar-nav-icon">
+                            <use xlink:href=" {{asset('vendors/@coreui/icons/svg/free.svg#cil-puzzle')}}"></use>
+                        </svg> {{$page->title}}
+                    </a>
+                </li>
+            @endforeach
         @endif
-        <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
-            <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
-                <svg class="c-sidebar-nav-icon">
-                    <use xlink:href=" {{asset('vendors/@coreui/icons/svg/free.svg#cil-puzzle')}}">
-
-                    </use>
-                </svg>
-                Base
-            </a>
-            <ul class="c-sidebar-nav-dropdown-items">
-                <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="base/cards.html"><span
-                            class="c-sidebar-nav-icon"></span> Cards</a></li>
-            </ul>
-        </li>
+        <li class="c-sidebar-nav-title">{{__('Others')}}</li>
         <li class="c-sidebar-nav-item">
             <a class="c-sidebar-nav-link" href="{{ route('logout') }}"
                onclick="event.preventDefault();
@@ -84,12 +74,12 @@
             </form>
 
         </li>
-        <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
-            <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
-        </div>
-        <div class="ps__rail-y" style="top: 0px; height: 616px; right: 0px;">
-            <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 508px;"></div>
-        </div>
+{{--        <div class="ps__rail-x" style="left: 0px; bottom: 0px;">--}}
+{{--            <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>--}}
+{{--        </div>--}}
+{{--        <div class="ps__rail-y" style="top: 0px; height: 616px; right: 0px;">--}}
+{{--            <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 508px;"></div>--}}
+{{--        </div>--}}
     </ul>
     <button class="c-sidebar-minimizer c-class-toggler" type="button" data-target="_parent"
             data-class="c-sidebar-minimized"></button>
