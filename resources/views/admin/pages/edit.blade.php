@@ -26,8 +26,8 @@
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="form-group">
-                                            <label for="name">{{__('Title')}}</label>
-                                            <input id="name" class="form-control" value="{{$page->title}}" name="title"
+                                            <label for="title">{{__('Title')}}</label>
+                                            <input id="title" class="form-control" value="{{$page->title}}" name="title"
                                                    type="text">
                                         </div>
                                         <div class="form-group">
