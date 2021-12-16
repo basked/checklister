@@ -25,7 +25,7 @@ class UpdatePageRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required'],
+            'title' => ['required'],
             'content'=> ['required'],
         ];
     }
