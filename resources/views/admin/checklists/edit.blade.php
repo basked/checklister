@@ -48,33 +48,12 @@
                         </button>
                     </form>
                     <hr>
+
                     <div class="card">
                         <div class="card-header"> {{__('List of Tasks')}}</div>
                         <div class="card-body">
-                            <table class="table table-responsive-sm">
-                                <tbody>
-                                @foreach($checklist->tasks  as $task)
-                                    <tr>
-                                        <td>{{$task->name}}</td>
-                                        <td>{{$task->description}}</td>
-                                        <td>
+                            @livewire('tasks-table',['checklist'=>$checklist])
 
-                                            <a class="btn btn-sm btn-primary" type="submit" href="{{route('admin.checklists.tasks.edit',[$checklist,$task])}}">Edit</a>
-                                            <form style="display: inline-block"
-                                                  action="{{route('admin.checklists.tasks.destroy',[$checklist,$task])}}"
-                                                  method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="btn btn-sm btn-danger" type="submit"
-                                                        onclick="return confirm('{{__('Are you sure?')}}')">
-                                                    {{ __('Delete Task') }}
-                                                </button>
-                                            </form>
-                                          </td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
                         </div>
                     </div>
                     <div class="card">
