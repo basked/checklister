@@ -3,7 +3,7 @@
     @foreach($tasks  as $task)
         <tr wire:sortable.item="{{ $task->id }}" wire:key="task-{{ $task->id }}">
             <td>{{$task->name}}</td>
-            <td>{{$task->description}}</td>
+            <td>{!!$task->description!!}</td>
             <td>
 
                 <a class="btn btn-sm btn-primary" type="submit"

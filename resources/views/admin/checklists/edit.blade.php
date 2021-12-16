@@ -80,7 +80,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="description">{{__('Description')}}</label>
-                                            <textarea class="form-control" name="description"
+                                            <textarea class="form-control" name="description" id="task-textarea"
                                                       rows="5"> {{old('description')}}</textarea>
                                         </div>
                                     </div>
@@ -88,10 +88,21 @@
                                 <div class="card-footer">
                                     <button class="btn btn-sm btn-primary" type="submit">{{ __('Save Task') }}</button>
                                 </div>
+                            </div>
                         </form>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
+@endsection
+@section('scripts')
+    <script>
+        ClassicEditor
+            .create( document.querySelector( '#task-textarea' ) )
+            .catch( error => {
+                console.error( error );
+            } );
+    </script>
 @endsection
