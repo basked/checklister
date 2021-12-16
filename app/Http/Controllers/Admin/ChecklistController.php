@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreChecklistGroupRequest;
 use App\Http\Requests\StoreChecklistRequest;
 use App\Models\Checklist;
 use App\Models\ChecklistGroup;
