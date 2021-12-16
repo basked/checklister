@@ -4,9 +4,9 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreChecklistRequest extends FormRequest
+class StoreTaskRequest extends FormRequest
 {
-    protected $errorBag='storechecklist';
+     protected $errorBag='storetask';
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -25,7 +25,8 @@ class StoreChecklistRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=> 'required|unique:checklists',
+            'name'=>'required',
+            'description'=>'required',
         ];
     }
 }

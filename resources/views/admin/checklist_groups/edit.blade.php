@@ -15,6 +15,7 @@
                                 </ul>
                             </div>
                         @endif
+
                         <form action="{{route('admin.checklist_groups.update',$checklistGroup )}}" method="POST">
                             @csrf
                             @method('PUT')

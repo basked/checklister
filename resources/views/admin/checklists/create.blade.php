@@ -6,10 +6,10 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        @if ($errors->any())
+                        @if ($errors->storechecklist->any())
                             <div class="alert alert-danger">
                                 <ul>
-                                    @foreach ($errors->all() as $error)
+                                    @foreach ($errors->storechecklist->all() as $error)
                                         <li>{{ $error }}</li>
                                     @endforeach
                                 </ul>
@@ -17,13 +17,13 @@
                         @endif
                         <form action="{{route('admin.checklist_groups.checklists.store',$checklistGroup)}}" method="POST">
                             @csrf
-                            <div class="card-header">{{ __('New checklists in') }}{{$checklistGroup->name}}</div>
+                            <div class="card-header">{{ __('New checklists in ') }}{{$checklistGroup->name}}</div>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label for="name">{{__('Name')}}</label>
-                                            <input class="form-control" name="name" type="text"
+                                            <input class="form-control" name="name" type="text" value="{{old('name')}}
                                                    placeholder="{{__('Checklist name')}}">
 
                                         </div>

@@ -6,26 +6,31 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        @if ($errors->any())
+                        @if ($errors->storetask->any())
                             <div class="alert alert-danger">
                                 <ul>
-                                    @foreach ($errors->all() as $error)
+                                    @foreach ($errors->storetask->all() as $error)
                                         <li>{{ $error }}</li>
                                     @endforeach
                                 </ul>
                             </div>
                         @endif
-                        <form action="{{route('admin.checklist_groups.store')}}" method="POST">
+
+                        <form action="{{route('admin.checklists.tasks.update',[$task->checklist_id,$task] )}}" method="POST">
                             @csrf
-                            <div class="card-header">{{ __('New checklists group') }}</div>
+                            @method('PUT')
+                            <div class="card-header">{{ __('Edit tasl') }}</div>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label for="name">{{__('Name')}}</label>
-                                            <input class="form-control" name="name" type="text" value="{{old('name')}}
-                                                   placeholder="{{__('Checklist group name')}}">
-
+                                            <input class="form-control" value="{{$task->name}}" name="name"
+                                                   type="text" >
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="name">{{__('Description')}}</label>
+                                            <textarea class="form-control" name="description" >  {{$task->description}} </textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -35,7 +40,7 @@
                             </div>
                         </form>
                     </div>
-                </div>
+                                   </div>
             </div>
         </div>
     </div>
