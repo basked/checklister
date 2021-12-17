@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
@@ -9,10 +8,8 @@ use App\Models\Task;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\View;
 
-
 class TaskController extends Controller
 {
-
     public function store(StoreTaskRequest $request, Checklist $checklist): RedirectResponse
     {
         // максимальная позизия для текущего списка + 1
