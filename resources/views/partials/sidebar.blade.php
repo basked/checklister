@@ -7,16 +7,19 @@
                     <a class="c-sidebar-nav-link"
                        href=" {{route('admin.checklist_groups.edit',$group->id)}} ">
                         <svg class="c-sidebar-nav-icon">
-                            <use xlink:href=" {{asset('vendors/@coreui/icons/svg/free.svg#cil-puzzle')}}"></use>
+                            <use xlink:href=" {{asset('vendors/@coreui/icons/svg/free.svg#cil-folder-open')}}"></use>
                         </svg>
                         {{$group->name}}
                     </a>
                     <ul class="c-sidebar-nav-dropdown-items">
                         @foreach ($group->checklists as $checklist)
                             <li class="c-sidebar-nav-item">
-                                <a class="c-sidebar-nav-link"
+                                <a class="c-sidebar-nav-link" style="padding: .5rem .5rem .5rem 76px"
                                    href=" {{route('admin.checklist_groups.checklists.edit',[$group,$checklist] )}} ">
                                     <span class="c-sidebar-nav-icon"></span>
+                                    <svg class="c-sidebar-nav-icon">
+                                        <use xlink:href=" {{asset('vendors/@coreui/icons/svg/free.svg#cil-list')}}"></use>
+                                    </svg>
                                     {{$checklist->name}}
                                 </a>
                             </li>
@@ -24,6 +27,9 @@
                         <li class="c-sidebar-nav-item">
                             <a class="c-sidebar-nav-link"
                                href="{{route('admin.checklist_groups.checklists.create',$group)}}">
+                                <svg class="c-sidebar-nav-icon">
+                                    <use xlink:href=" {{asset('vendors/@coreui/icons/svg/free.svg#cil-note-add')}}"></use>
+                                </svg>
                                 {{__('New checklists')}}
                             </a>
                         </li>
@@ -32,6 +38,9 @@
             @endforeach
             <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
                 <a class="c-sidebar-nav-link" href="{{route('admin.checklist_groups.create')}}">
+                    <svg class="c-sidebar-nav-icon">
+                        <use xlink:href=" {{asset('vendors/@coreui/icons/svg/free.svg#cil-library-add')}}"></use>
+                    </svg>
                     {{__('New checklists group')}}
                 </a>
             </li>
