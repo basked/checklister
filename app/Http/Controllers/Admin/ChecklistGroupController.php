@@ -30,12 +30,12 @@ class ChecklistGroupController extends Controller
     public function update(UpdateChecklistGroupRequest $request, ChecklistGroup $checklistGroup): RedirectResponse
     {
         $checklistGroup->update($request->validated());
-        return redirect()->route('home');
+        return redirect()->route('welcome');
     }
 
     public function destroy(ChecklistGroup $checklistGroup): RedirectResponse
     {
         $checklistGroup->delete();
-        return redirect()->route('home');
+        return redirect()->route('welcome');
     }
 }
