@@ -8,7 +8,7 @@ class StoreChecklistRequest extends FormRequest
 {
     protected $errorBag='storechecklist';
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the users is authorized to make this request.
      *
      * @return bool
      */
