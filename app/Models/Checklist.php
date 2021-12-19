@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Checklist extends Model
 {
     use HasFactory, SoftDeletes;
-    protected $fillable=['checklist_group_id','name'];
+    protected $fillable=['checklist_group_id','name','user_id','checklist_id'];
 
     public function tasks()
     {
