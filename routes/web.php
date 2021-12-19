@@ -19,9 +19,8 @@ use App\Http\Controllers\Admin\TaskController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::redirect('/','welcome');
+
 
 Auth::routes();
 
