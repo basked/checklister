@@ -2,7 +2,7 @@
     <ul class="c-sidebar-nav ps ps--active-y">
         @if(auth()->user()->is_admin)
             <li class="c-sidebar-nav-title">{{__('Manage CheckList')}}</li>
-            @foreach(\App\Models\ChecklistGroup::with('checklists')->get()  as $group)
+            @foreach($admin_menu  as $group)
                 <li class="c-sidebar-nav-item c-sidebar-nav-dropdown c-show">
                     <a class="c-sidebar-nav-link"
                        href=" {{route('admin.checklist_groups.edit',$group->id)}} ">
@@ -14,7 +14,7 @@
                     <ul class="c-sidebar-nav-dropdown-items">
                         @foreach ($group->checklists as $checklist)
                             <li class="c-sidebar-nav-item">
-                                <a class="c-sidebar-nav-link" style="padding: .5rem .5rem .5rem 76px"
+                                <a class="c-sidebar-nav-link" style="padding: .1rem .5rem .5rem 76px"
                                    href=" {{route('admin.checklist_groups.checklists.edit',[$group,$checklist] )}} ">
                                     <svg class="c-sidebar-nav-icon">
                                         <use
@@ -25,7 +25,7 @@
                             </li>
                         @endforeach
                         <li class="c-sidebar-nav-item">
-                            <a class="c-sidebar-nav-link"
+                            <a class="c-sidebar-nav-link" style="padding: .5rem .5rem .5rem 76px"
                                href="{{route('admin.checklist_groups.checklists.create',$group)}}">
                                 <svg class="c-sidebar-nav-icon">
                                     <use
