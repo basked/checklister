@@ -66,13 +66,14 @@
                 </a>
             </li>
         @else
+{{--            @dd($user_menu )--}}
             @foreach($user_menu  as $group)
                 <li class="c-sidebar-nav-title">{{ $group['name']}}
-                @if($group['is_new'])
-                    <span class="badge badge-info">NEW</span>
-                @else
-                    <span class="badge badge-info">UPD</span>
-                @endif
+                    @if ($group['is_new'])
+                        <span class="badge badge-info">NEW</span>
+                    @elseif ($group['is_updated'])
+                        <span class="badge badge-info">UPD</span>
+                    @endif
                 </li>
                 @foreach ($group['checklists'] as $checklist)
                     <li class="c-sidebar-nav-item">
@@ -82,9 +83,9 @@
                                 <use xlink:href=" {{asset('vendors/@coreui/icons/svg/free.svg#cil-list')}}"></use>
                             </svg>
                             {{$checklist['name']}}
-                            @if($checklist['is_new'])
+                            @if ($checklist['is_new'])
                                 <span class="badge badge-info">NEW</span>
-                            @else
+                            @elseif ($checklist['is_updated'])
                                 <span class="badge badge-info">UPD</span>
                             @endif
                         </a>
