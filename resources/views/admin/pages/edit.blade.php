@@ -31,9 +31,9 @@
                                                    type="text">
                                         </div>
                                         <div class="form-group">
-                                            <label for="content-textarea">{{__('Content')}}</label>
+                                            <label for="task-textarea">{{__('Content')}}</label>
                                             <textarea class="form-control" name="content"
-                                                      id="content-textarea">  {{$page->content}} </textarea>
+                                                      id="task-textarea">  {{$page->content}} </textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -49,28 +49,6 @@
     </div>
 @endsection
 @section('scripts')
-    <script>
-        ClassicEditor
-            .create(document.querySelector('#content-textarea'), {
-                codeBlock: {
-                    languages: [
-                        // Do not render the CSS class for the plain text code blocks.
-                        { language: 'plaintext', label: 'Plain text', class: '' },
+    @include('admin.ckeditor')
 
-                        // Use the "php-code" class for PHP code blocks.
-                        { language: 'php', label: 'PHP', class: 'php-code' },
-
-                        // Use the "js" class for JavaScript code blocks.
-                        // Note that only the first ("js") class will determine the language of the block when loading data.
-                        { language: 'javascript', label: 'JavaScript', class: 'js javascript js-code' },
-
-                        // Python code blocks will have the default "language-python" CSS class.
-                        { language: 'python', label: 'Python' }
-                    ]
-                }
-            } )
-        .catch(error => {
-            console.error(error);
-        });
-    </script>
 @endsection

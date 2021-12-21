@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Task;
-use Illuminate\Http\Request;
+
 
 class ImageController extends Controller
 {
@@ -16,7 +16,7 @@ class ImageController extends Controller
         $image = $task->addMediaFromRequest('upload')->toMediaCollection('images');
 
         return response()->json([
-            'url' => $image->getUrl('')
+             'url' => $image->getUrl('thumb')
         ]);
     }
 }
