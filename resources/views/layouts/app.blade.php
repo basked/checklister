@@ -42,16 +42,6 @@
                     </svg>
                 </a>
             </li>
-            {{--            <li class="c-header-nav-item d-md-down-none mx-2"><a class="c-header-nav-link" href="#">--}}
-            {{--                    <svg class="c-icon">--}}
-            {{--                        <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-list-rich"></use>--}}
-            {{--                    </svg>--}}
-            {{--                </a></li>--}}
-            {{--            <li class="c-header-nav-item d-md-down-none mx-2"><a class="c-header-nav-link" href="#">--}}
-            {{--                    <svg class="c-icon">--}}
-            {{--                        <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-envelope-open"></use>--}}
-            {{--                    </svg>--}}
-            {{--                </a></li>--}}
             <li class="c-header-nav-item dropdown">
                 <a class="c-header-nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
                    aria-expanded="false">

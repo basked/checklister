@@ -50,5 +50,4 @@
 @endsection
 @section('scripts')
     @include('admin.ckeditor')
-
 @endsection

@@ -16,7 +16,7 @@ class ImageController extends Controller
         $image = $task->addMediaFromRequest('upload')->toMediaCollection('images');
 
         return response()->json([
-             'url' => $image->getUrl('thumb')
+            'url' => $image->getUrl('thumb')
         ]);
     }
 }
