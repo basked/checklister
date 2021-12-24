@@ -11,7 +11,7 @@ class TasksTable extends Component
 
     public function render()
     {
-        $tasks = $this->checklist->tasks()->orderBy('position')->get();
+        $tasks = $this->checklist->tasks()->where('user_id', NULL)->orderBy('position')->get();
         return view('livewire.tasks-table', compact('tasks'));
     }
 
@@ -21,4 +21,30 @@ class TasksTable extends Component
             Task::find($task['value'])->update(['position' => $task['order']]);
         }
     }
+
+    public function task_up($task_id)
+    {
+        $task = Task::find($task_id);
+        if ($task) {
+            // обновляем предыдущую позицию текущей
+            Task::whereNull('user_id')->where('position', $task->position - 1)->update([
+                'position' => $task->position
+            ]);
+        };
+        // обновляем текущую позицию предыдущей
+        $task->update(['position' => $task->position - 1]);
+    }
+
+    public function task_down($task_id)
+    {
+        $task = Task::find($task_id);
+        if ($task) {
+            Task::whereNull('user_id')->where('position', $task->position + 1)->update([
+                'position' => $task->position
+            ]);
+        }
+        $task->update(['position' => $task->position + 1]);
+    }
+
+
 }
