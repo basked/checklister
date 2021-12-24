@@ -20,7 +20,7 @@ class ChecklistShow extends Component
             ->whereNotNull('completed_at')
             ->pluck('task_id')->toArray();
     }
- //
+ //  dfff
     public function render()
     {
         return view('livewire.checklist-show');
