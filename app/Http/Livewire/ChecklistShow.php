@@ -9,11 +9,16 @@ class ChecklistShow extends Component
 {
     public $checklist;
     public $open_tasks = [];
+    public $completed_tasks = [];
 
 
     public function mount()
     {
         $this->open_tasks = [];
+        $this->complete_task = Task::where('checklist_id', $this->checklist->id)
+            -> where ('user_id', auth()->id())
+            ->whereNotNull('completed_at')
+            ->pluck('task_id')->toArray();
     }
 
     public function render()
