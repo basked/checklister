@@ -66,7 +66,7 @@
                 </a>
             </li>
         @else
-{{--            @dd($user_menu )--}}
+            {{--            @dd($user_menu )--}}
             @foreach($user_menu  as $group)
                 <li class="c-sidebar-nav-title">{{ $group['name']}}
                     @if ($group['is_new'])
@@ -83,6 +83,11 @@
                                 <use xlink:href=" {{asset('vendors/@coreui/icons/svg/free.svg#cil-list')}}"></use>
                             </svg>
                             {{$checklist['name']}}
+                            @livewire('completed-task-counter', [
+                              'completed_tasks'=>count($checklist['user_tasks']),
+                              'tasks_count'=>count($checklist['tasks']),
+                              'checklist_id'=>$checklist['id']
+                            ])
                             @if ($checklist['is_new'])
                                 <span class="badge badge-info">NEW</span>
                             @elseif ($checklist['is_updated'])
