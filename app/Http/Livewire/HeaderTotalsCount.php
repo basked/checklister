@@ -10,7 +10,6 @@ class HeaderTotalsCount extends Component
     public $checklist_group_id;
     protected $listeners = ['task_complete' => 'render'];
 
-
     public function render()
     {
         $checklists = Checklist::where('checklist_group_id',
