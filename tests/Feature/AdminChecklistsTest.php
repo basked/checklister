@@ -29,16 +29,17 @@ class AdminChecklistsTest extends TestCase
         $group = ChecklistGroup::where('name', 'First group')->first();
         $this->assertNotNull($group);
 
-        $response = $this->actingAs($admin)->get("admin/checklist_groups/ $group->id /edit");
-        $response->assertStatus(200);
-/*
-        $response = $this->actingAs($admin)->put('admin/checklist_groups/' . $group->id, [
-            'name' => 'Updated First group'
+        // Test EDITING the checklist group
+        $response = $this->put('admin/checklist_groups/' . $group->id, [
+            'name' => 'Updated first group'
         ]);
-        $response->assertStatus(200);
+        $response->assertRedirect('welcome');
 
-        $group = ChecklistGroup::where('name', 'Updated First group')->first();
-        $this->assertNotNull($group);*/
+        $group = ChecklistGroup::where('name', 'Updated first group')->first();
+        $this->assertNotNull($group);
+
+        // Test DELETING the checklist group
+        $response = $this->delete('admin/checklist_groups/' . $group->id);
+        $response->assertRedirect('welcome');
     }
-
 }
