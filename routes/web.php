@@ -21,9 +21,7 @@ use App\Http\Controllers\Admin\TaskController;
 
 Route::redirect('/','welcome');
 
-
 Auth::routes();
-
 Route::group(['middleware' => ['auth','save_last_action_at']], function () {
     Route::get('/welcome', [\App\Http\Controllers\PageController::class, 'welcome'])->name('welcome');
     Route::get('/checklists/{checklist}', [\App\Http\Controllers\User\ChecklistController::class, 'show'])->name('users.checklists.show');
