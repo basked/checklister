@@ -20,7 +20,6 @@ class AdminChecklistsTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-
         $admin = User::factory()->create(['is_admin' => 1]);
         $this->actingAs($admin);
     }
