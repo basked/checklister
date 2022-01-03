@@ -2,47 +2,80 @@
     <div class="col-md-8">
         <div class="card">
             <div class="card-header">
-                {{$checklist->name}}
+                {{ $list_name }}
             </div>
             <div class="card-body">
-                <table class="table">
-                    @foreach($checklist->tasks->where('user_id',NULL) as $task)
-                        <tr>
-                            <td>
-                                <input type="checkbox" wire:click="complete_task({{$task->id}})"
-                                       @if (in_array($task->id,$completed_tasks)) checked="checked" @endif />
-                            </td>
-                            <td>
-                                <a style="color:#3c4b64; text-decoration:none"
-                                   wire:click.prevent="toggle_task({{$task->id}})" href="#">
-                                    {{$task->name}}
-                                </a>
-                            </td>
-                            <td wire:click="toggle_task({{$task->id}})">
-                                @if (in_array($task->id,$opened_tasks))
-                                    <svg id="task-caret-top-{{$task->id}}" class="c-icon">
-                                        <use
-                                            xlink:href=" {{asset('vendors/@coreui/icons/svg/free.svg#cil-caret-top')}}"></use>
-                                    </svg>
-                                @else
-                                    <svg id="task-caret-bottom-{{$task->id}}" class="c-icon">
-                                        <use
-                                            xlink:href=" {{asset('vendors/@coreui/icons/svg/free.svg#cil-caret-bottom')}}"></use>
-                                    </svg>
+                @if ($list_tasks->count())
+                    <table class="table">
+                        @foreach($list_tasks as $task)
+                            @if ($loop->iteration == 6 && !Auth::user()->has_free_access && !Auth::user()->subscribed())
+                                <tr>
+                                    <td colspan="4" class="text-center">
+                                        <h3>{{ __('You are limited at 5 tasks per checklist') }}</h3>
+                                        <a href="/billing" class="btn btn-primary">{{ __('Unlock all now') }}</a>
+                                    </td>
+                                </tr>
+                            @elseif ($loop->iteration <= 5 || Auth::user()->has_free_access || Auth::user()->subscribed())
+                                <tr>
+                                    <td width="5%">
+                                        <input type="checkbox" wire:click="complete_task({{ $task->id }})"
+                                               @if (in_array($task->id, $completed_tasks)) checked="checked" @endif />
+                                    </td>
+                                    <td width="90%">
+                                        <a wire:click.prevent="toggle_task({{$task->id }})"
+                                           href="#">{{ $task->name }}</a>
+                                        @if ($user_tasks->where('task_id', $task->id)->first())
+                                            <div style="font-style: italic; font-size: 11px">
+                                                @if ($list_type)
+                                                    {{ $task->checklist->name }} |
+                                                @endif
+                                                @if ($user_tasks->where('task_id', $task->id)->first()->added_to_my_day_at)
+                                                    <span class="mr-2">
+                                                    &#9788;
+                                                    {{ __('My Day') }}
+                                                </span>
+                                                @endif
+                                                @if ($user_tasks->where('task_id', $task->id)->first()->due_date)
+                                                    <span class="mr-2">
+                                                    &#9745;&nbsp;
+                                                    {{ __('Due') }} {{ $user_tasks->where('task_id', $task->id)->first()->due_date->format('M d, Y') }}
+                                                    </span>
+                                                @endif
+                                                @if ($user_tasks->where('task_id', $task->id)->first()->reminder_at)
+                                                    <span class="mr-2">
+                                                    &#9993;
+                                                    </span>
+                                                @endif
+                                                @if ($user_tasks->where('task_id', $task->id)->first()->note)
+                                                    <span class="mr-2">
+                                                    &#9998;
+                                                    </span>
+                                                @endif
+                                            </div>
+                                        @endif
+                                    </td>
+                                    <td width="5%">
+                                        @if (optional($user_tasks->where('task_id', $task->id)->first())->is_important)
+                                            <a wire:click.prevent="mark_as_important({{ $task->id }})"
+                                               href="#">&starf;</a>
+                                        @else
+                                            <a wire:click.prevent="mark_as_important({{ $task->id }})"
+                                               href="#">&star;</a>
+                                        @endif
+                                    </td>
+                                </tr>
+                                @if (in_array($task->id, $opened_tasks))
+                                    <tr>
+                                        <td></td>
+                                        <td colspan="3">{!! $task->description !!}</td>
+                                    </tr>
                                 @endif
-                            </td>
-                        </tr>
-                        @if (in_array($task->id,$opened_tasks))
-                            <tr>
-                                <td></td>
-                                <td colspan="2">
-                                    {!! $task->description!!}
-                                </td>
-                            </tr>
-                        @endif
-                    @endforeach
-
-                </table>
+                            @endif
+                        @endforeach
+                    </table>
+                @else
+                    {{ __('No tasks found') }}
+                @endif
             </div>
         </div>
     </div>
