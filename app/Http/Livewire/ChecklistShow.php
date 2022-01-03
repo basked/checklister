@@ -10,7 +10,7 @@ class ChecklistShow extends Component
     public $checklist;
     public $open_tasks = [];
     public $completed_tasks = [];
-
+    public ?Task $current_task;
 
     public function mount()
     {
@@ -20,7 +20,7 @@ class ChecklistShow extends Component
             ->whereNotNull('completed_at')
             ->pluck('task_id')
             ->toArray();
-
+        $this->current_task=NULL;
     }
 
     public function render()
@@ -33,9 +33,20 @@ class ChecklistShow extends Component
         if (in_array($task_id, $this->open_tasks)) {
             // если есть id задачи в списке - удалем
             $this->open_tasks = array_diff($this->open_tasks, [$task_id]);
+            $this->current_task=NULL;
         } else {
             // признак откытой задачи
             $this->open_tasks[] = $task_id;
+            $this->current_task = Task::where('user_id', auth()->id())
+                ->where('task_id', $task_id)
+                ->first();
+            if (!$this->current_task) {
+                $task = Task::find($task_id);
+                $this->current_task = $task->replicate();
+                $this->current_task['user_id'] = auth()->id();
+                $this->current_task['task_id'] = $task_id;
+                $this->current_task->save();
+            }
         }
 
     }
@@ -66,5 +77,29 @@ class ChecklistShow extends Component
 
         }
 
+    }
+    public function add_to_my_day($task_id)
+    {
+        $user_task = Task::where('user_id', auth()->id())
+            ->where('id', $task_id)
+            ->first();
+        if ($user_task) {
+            if (is_null($user_task->added_to_my_day_at)) {
+                $user_task->update(['added_to_my_day_at' => now()]);
+                $this->emit('user_tasks_counter_change', 'my_day');
+            } else {
+                $user_task->update(['added_to_my_day_at' => NULL]);
+                $this->emit('user_tasks_counter_change', 'my_day', -1);
+            }
+        } else {
+            $task = Task::find($task_id);
+            $user_task = $task->replicate();
+            $user_task['user_id'] = auth()->id();
+            $user_task['task_id'] = $task_id;
+            $user_task['added_to_my_day_at'] = now();
+            $user_task->save();
+            $this->emit('user_tasks_counter_change', 'my_day');
+        }
+        $this->current_task = $user_task;
     }
 }

@@ -19,7 +19,7 @@ class MenuService
             'checklists.tasks' => function ($query) {
                 $query->whereNull('tasks.user_id');
             },
-           'checklists.user_tasks',
+            'checklists.user_completed_tasks',
         ])->get();
 
         $groups = [];
@@ -45,39 +45,39 @@ class MenuService
                         && $checklist_updated_at
                         && Carbon::create($checklist['updated_at'])->greaterThan($checklist_updated_at);;
                     $checklist['tasks_count'] = count($checklist['tasks']);
-                    $checklist['completed_tasks_count'] = count($checklist['user_tasks']);
+                    $checklist['completed_tasks_count'] = count($checklist['user_completed_tasks']);
                 }
 
                 $groups[] = $group;
             }
         }
 
-        /*   $user_tasks_menu = [];
-         if (!auth()->user()->is_admin) {
-             $user_tasks = Task::where('user_id', auth()->id())->get();
-      $user_tasks_menu = [
-                 'my_day' => [
-                     'name' => __('My Day'),
-                     'icon' => 'sun',
-                     'tasks_count' => $user_tasks->whereNotNull('added_to_my_day_at')->count()
-                 ],
-                 'important' => [
-                     'name' => __('Important'),
-                     'icon' => 'star',
-                     'tasks_count' => $user_tasks->where('is_important', 1)->count()
-                 ],
-                 'planned' => [
-                     'name' => __('Planned'),
-                     'icon' => 'calendar',
-                     'tasks_count' => $user_tasks->whereNotNull('due_date')->count()
-                 ],
-             ];
+        $user_tasks_menu = [];
+        if (!auth()->user()->is_admin) {
+            $user_tasks = Task::where('user_id', auth()->id())->get();
+            $user_tasks_menu = [
+                'my_day' => [
+                    'name' => __('My Day'),
+                    'icon' => 'sun',
+                    'tasks_count' => $user_tasks->whereNotNull('added_to_my_day_at')->count()
+                ],
+                'important' => [
+                    'name' => __('Important'),
+                    'icon' => 'star',
+                    'tasks_count' => 0,//$user_tasks->where('is_important', 1)->count()
+                ],
+                'planned' => [
+                    'name' => __('Planned'),
+                    'icon' => 'calendar',
+                    'tasks_count' => 0,//$user_tasks->whereNotNull('due_date')->count()
+                ],
+            ];
         }
-*/
+
         return [
             'admin_menu' => $menu,
             'user_menu' => $groups,
-            //'user_tasks_menu' => $user_tasks_menu,
+            'user_tasks_menu' => $user_tasks_menu,
         ];
     }
 
