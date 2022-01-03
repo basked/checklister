@@ -5,7 +5,7 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use mysql_xdevapi\ColumnResult;
 
-class CompletedTaskCounter extends Component
+class CompletedTasksCounter extends Component
 {
     public $completed_tasks = 0;
     public $tasks_count = 0;
@@ -14,7 +14,7 @@ class CompletedTaskCounter extends Component
 
     public function render()
     {
-        return view('livewire.completed-task-counter');
+        return view('livewire.completed-tasks-counter');
     }
 
     public function recalculate_tasks($task_id, $checklist_id, $count_change=1)

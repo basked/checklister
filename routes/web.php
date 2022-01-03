@@ -19,13 +19,19 @@ use App\Http\Controllers\Admin\TaskController;
 |
 */
 
-Route::redirect('/','welcome');
+Route::redirect('/', 'welcome');
+
+Auth::routes();
 
 Auth::routes();
 Route::group(['middleware' => ['auth','save_last_action_at']], function () {
     Route::get('/welcome', [\App\Http\Controllers\PageController::class, 'welcome'])->name('welcome');
     Route::get('/checklists/{checklist}', [\App\Http\Controllers\User\ChecklistController::class, 'show'])->name('users.checklists.show');
     Route::get('/consultation', [\App\Http\Controllers\PageController::class, 'consultation'])->name('consultation');
+    Route::get('checklists/{checklist}', [\App\Http\Controllers\User\ChecklistController::class, 'show'])
+        ->name('user.checklists.show');
+    Route::get('tasklist/{list_type}', [\App\Http\Controllers\User\ChecklistController::class, 'tasklist'])
+        ->name('user.tasklist');
     Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'is_admin'], function () {
         Route::resource('pages', PageController::class)->only(['edit', 'update']);
         Route::resource('checklist_groups', ChecklistGroupController::class);

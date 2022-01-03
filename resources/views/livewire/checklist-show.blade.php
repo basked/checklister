@@ -13,12 +13,13 @@
                                        @if (in_array($task->id,$completed_tasks)) checked="checked" @endif />
                             </td>
                             <td>
-                                <a style="color:#3c4b64; text-decoration:none"  wire:click.prevent="toggle_task({{$task->id}})" href="#">
+                                <a style="color:#3c4b64; text-decoration:none"
+                                   wire:click.prevent="toggle_task({{$task->id}})" href="#">
                                     {{$task->name}}
                                 </a>
                             </td>
                             <td wire:click="toggle_task({{$task->id}})">
-                                @if (in_array($task->id,$open_tasks))
+                                @if (in_array($task->id,$opened_tasks))
                                     <svg id="task-caret-top-{{$task->id}}" class="c-icon">
                                         <use
                                             xlink:href=" {{asset('vendors/@coreui/icons/svg/free.svg#cil-caret-top')}}"></use>
@@ -31,7 +32,7 @@
                                 @endif
                             </td>
                         </tr>
-                        @if (in_array($task->id,$open_tasks))
+                        @if (in_array($task->id,$opened_tasks))
                             <tr>
                                 <td></td>
                                 <td colspan="2">
