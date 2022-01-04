@@ -42,6 +42,7 @@ class SendRemindersCommand extends Command
         $tasks = Task::with('user')
             ->where('reminder_at', '<=', now()->toDateTimeString())
             ->get();
+
         foreach ($tasks as $task) {
             $task->user->notify(new TaskReminderNotification($task));
             $task->update(['reminder_at' => NULL]);
