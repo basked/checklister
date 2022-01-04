@@ -27,7 +27,7 @@
                                         @if ($user_tasks->where('task_id', $task->id)->first())
                                             <div style="font-style: italic; font-size: 11px">
                                                 @if ($list_type)
-                                                    {{ $task->checklist->name }} |
+{{--                                                    {{ $task->checklist->name }} |--}}
                                                 @endif
                                                 @if ($user_tasks->where('task_id', $task->id)->first()->added_to_my_day_at)
                                                     <span class="mr-2">
@@ -38,7 +38,7 @@
                                                 @if ($user_tasks->where('task_id', $task->id)->first()->due_date)
                                                     <span class="mr-2">
                                                     &#9745;&nbsp;
-                                                    {{ __('Due') }} {{ $user_tasks->where('task_id', $task->id)->first()->due_date->format('M d, Y') }}
+                                                    {{ __('Due') }} {{ $user_tasks->where('task_id', $task->id)->first()->due_date->format('M j, Y')}}
                                                     </span>
                                                 @endif
                                                 @if ($user_tasks->where('task_id', $task->id)->first()->reminder_at)
