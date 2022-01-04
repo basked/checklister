@@ -48,7 +48,7 @@
                                                 @endif
                                                 @if ($user_tasks->where('task_id', $task->id)->first()->note)
                                                     <span class="mr-2">
-                                                    &#9998;
+                                                    &#9998;{{ $user_tasks->where('task_id', $task->id)->first()->note}}
                                                     </span>
                                                 @endif
                                             </div>
