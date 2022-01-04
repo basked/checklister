@@ -42,6 +42,7 @@ class TaskReminderNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
+            ->from('basket@bas.com')
                     ->line('This is  a reminder of the task')
                     ->line($this->task->name)
                     ->line('Thank you what using our application!') ;
