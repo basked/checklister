@@ -1,12 +1,8 @@
 <?php
 
 use Illuminate\Support\Str;
-$DATABASE_URL=parse_url('DATABASE_URL');
 
 return [
-
-
-
 
     /*
     |--------------------------------------------------------------------------
@@ -67,14 +63,29 @@ return [
             ]) : [],
         ],
 
+//        'pgsql' => [
+//            'driver' => 'pgsql',
+//            'url' => env('DATABASE_URL'),
+//            'host' => env('DB_HOST', '127.0.0.1'),
+//            'port' => env('DB_PORT', '5432'),
+//            'database' => env('DB_DATABASE', 'forge'),
+//            'username' => env('DB_USERNAME', 'forge'),
+//            'password' => env('DB_PASSWORD', ''),
+//            'charset' => 'utf8',
+//            'prefix' => '',
+//            'prefix_indexes' => true,
+//            'schema' => 'public',
+//            'sslmode' => 'prefer',
+//        ],
+
         'pgsql' => [
             'driver' => 'pgsql',
-//            'url' => env('DATABASE_URL'),
-            'host' => $DATABASE_URL["host"],
-            'port' => $DATABASE_URL["port"],
-            'database' => ltrim($DATABASE_URL["path"],"/") ,
-            'username' =>$DATABASE_URL["user"],
-            'password' => $DATABASE_URL["pass"],
+            'url' => 'postgres://utegckeiwsamqr:8628a4ab9990ac2108891bd90514c1b7f2011d075f83574310531352f660348e@ec2-54-196-105-177.compute-1.amazonaws.com:5432/d5ksf2velpj7jt',
+            'host' =>'ec2-54-196-105-177.compute-1.amazonaws.com',
+            'port' => '5432',
+            'database' => 'd5ksf2velpj7jt',
+            'username' =>'utegckeiwsamqr',
+            'password' => '8628a4ab9990ac2108891bd90514c1b7f2011d075f83574310531352f660348e',
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
